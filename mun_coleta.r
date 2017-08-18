@@ -133,6 +133,7 @@ pts=micomira[,c("species","lon","lat","municipality", "adm1")]
 pts1=na.exclude(pts)
 
 source("https://raw.githubusercontent.com/diogosbr/filtros/master/filt_municip.R")
+source("https://raw.githubusercontent.com/diogosbr/filtros/master/coord_invertida.R")
 
 pts1
 names(pts1)=c("species"   ,   "lat"     ,     "lon"      ,    "municipality" ,"adm1" )
@@ -142,7 +143,7 @@ head(teste)
 
 teste2=invert(teste)
 
-teste2
+head(teste2)
 
 
 
