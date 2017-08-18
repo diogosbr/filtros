@@ -15,8 +15,11 @@ require(dismo)
 #Lendo os pontos 
 #
 manimax=gbif("Manilkara", "maxima")
+
+micomira=gbif("Miconia", "mirabilis")
 #especie, lon, lat, municipio
 pts=manimax[,c("species","lon","lat","municipality", "adm1")]
+pts=micomira[,c("species","lon","lat","municipality", "adm1")]
 pts=na.exclude(pts)
 
 #convertendo em um objeto 'spatial'
@@ -118,16 +121,28 @@ pts1$filt[pts1$municipality==pts1$NOMEMUNICP,]="ok"
 
 
 
-#testando a função filt_municip
+#testando a função filt_municip ####
 
 manimax=gbif("Manilkara", "maxima")
 #especie, lon, lat, municipio
 pts=manimax[,c("species","lon","lat","municipality", "adm1")]
+
+micomira=gbif("Miconia", "mirabilis")
+#especie, lon, lat, municipio
+pts=micomira[,c("species","lon","lat","municipality", "adm1")]
 pts1=na.exclude(pts)
+
+source("https://raw.githubusercontent.com/diogosbr/filtros/master/filt_municip.R")
+
+pts1
+names(pts1)=c("species"   ,   "lat"     ,     "lon"      ,    "municipality" ,"adm1" )
 
 teste=filt_municip(pts1)
 head(teste)
 
+teste2=invert(teste)
+
+teste2
 
 
 

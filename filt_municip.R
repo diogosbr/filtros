@@ -41,12 +41,13 @@ filt_municip = function(pts, shape.municipios){
   pts1[,4]=as.vector(pts1[,4])
   pts1[,5]=as.vector(pts1[,5])
   
-  for(i in 1:dim(pts1)[2]){
+  for(i in 4:dim(pts1)[2]){
     pts1[,i]=tolower(pts1[,i])
     pts1[,i]=tolower(pts1[,i])
   }
   
   #função de Athos (https://pt.stackoverflow.com/questions/46473/remover-acentos)
+  
   rm_accent <- function(str,pattern="all") {
     # Rotinas e funções úteis V 1.0
     # rm.accent - REMOVE ACENTOS DE PALAVRAS
@@ -96,6 +97,14 @@ filt_municip = function(pts, shape.municipios){
   
   pts1$municipality=rm_accent(pts1$municipality)
   pts1$filt="Ok"
+  
+  for(i in 1:dim(pts1)[1]){
+    if(is.na(pts1$municipality==pts1$NOMEMUNICP)[i]==TRUE){
+      pts1[i,"filt"]="suspeito"
+      pts1[i,"NOMEMUNICP"]="Fora do Brasil"
+      pts1[i,"NOMEUF"]="Fora do Brasil"
+    }
+  }
   
   for(i in 1:dim(pts1)[1]){
     if((pts1$municipality==pts1$NOMEMUNICP)[i]==FALSE){
