@@ -149,6 +149,9 @@ head(teste2)
 pts1[1,2]=(-22.959222)
 pts1[1,3]=(-43.27772)
 
+pts1[2,2]=(41)
+pts1[2,3]=(12)
+
 teste3=filt(pts1)
 teste3
 

@@ -129,8 +129,8 @@ filt = function(pts, shape.municipios){
   muni_shape[,1]=as.vector(muni_shape[,1])
   muni_shape[,2]=as.vector(muni_shape[,2])
   pts2=cbind(pts2,muni_shape)
-  pts2[,8]=as.vector(pts2[,8])
   pts2[,9]=as.vector(pts2[,9])
+  pts2[,10]=as.vector(pts2[,10])
   
   for(i in 4:dim(pts2)[2]){
     pts2[,i]=tolower(pts2[,i])
@@ -150,7 +150,43 @@ filt = function(pts, shape.municipios){
     }
   }
   
-  return(pts2)
+  pts2[pts2$filt=="suspeito",2:3]=pts2[pts2$filt=="suspeito",2:3]*(-1)
+  
+  coordinates(pts2)<- ~lon+lat
+  
+  #criando um data frame
+  pts3=as.data.frame(pts2)
+  
+  #atribuinto projeçãos aos pontos
+  proj4string(pts2) <- CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+  
+  #extraindo dados dos shapes a partir dos pontos
+  muni_shape=over(pts2,br_mun)[,c('NOMEMUNICP','NOMEUF')]
+  muni_shape[,1]=as.vector(muni_shape[,1])
+  muni_shape[,2]=as.vector(muni_shape[,2])
+  pts3=cbind(pts3,muni_shape)
+  pts3[,11]=as.vector(pts3[,11])
+  pts3[,12]=as.vector(pts3[,12])
+  
+  for(i in 4:dim(pts3)[2]){
+    pts3[,i]=tolower(pts3[,i])
+    pts3[,i]=tolower(pts3[,i])
+  }
+  
+  for(i in 1:dim(pts3)[1]){
+    if(is.na(pts3$municipality==pts3[,11])[i]==TRUE){
+      pts3[i,11]="Fora do Brasil"
+      pts3[i,12]="Fora do Brasil"
+    }
+  }
+  
+  for(i in 1:dim(pts3)[1]){
+    if((pts3$municipality==pts3[,10])[i]==TRUE){
+      pts3[i,"filt"]="Sinal_trocado"
+    }
+  }
+  
+  return(pts3)
 }
 
 
