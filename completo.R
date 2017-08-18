@@ -1,7 +1,7 @@
 
 #Função para marcar ocorrências com município informado diferente da coordenada.
 
-filt_municip = function(pts, shape.municipios){
+filt = function(pts, shape.municipios){
   # instalando pacotes
   packages = c( "rgdal", "raster", "maptools", "dismo")
   for (p in setdiff(packages, installed.packages()[, "Package"])) {
@@ -111,9 +111,48 @@ filt_municip = function(pts, shape.municipios){
       pts1[i,"filt"]="suspeito"
     }
   }
-  return(pts1)
-}
   
+  #pts2=pts1[pts1$filt=="suspeito",]
+  
+  #convertendo em um objeto 'spatial'
+  #coordinates(pts)<- ~lon+lat
+  coordinates(pts1)<- ~lat+lon
+  
+  #criando um data frame
+  pts2=as.data.frame(pts1)
+
+  #atribuinto projeçãos aos pontos
+  proj4string(pts1) <- CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+  
+  #extraindo dados dos shapes a partir dos pontos
+  muni_shape=over(pts1,br_mun)[,c('NOMEMUNICP','NOMEUF')]
+  muni_shape[,1]=as.vector(muni_shape[,1])
+  muni_shape[,2]=as.vector(muni_shape[,2])
+  pts2=cbind(pts2,muni_shape)
+  pts2[,8]=as.vector(pts2[,8])
+  pts2[,9]=as.vector(pts2[,9])
+  
+  for(i in 4:dim(pts2)[2]){
+    pts2[,i]=tolower(pts2[,i])
+    pts2[,i]=tolower(pts2[,i])
+  }
+  
+  for(i in 1:dim(pts2)[1]){
+    if(is.na(pts2$municipality==pts2[,9])[i]==TRUE){
+      pts2[i,9]="Fora do Brasil"
+      pts2[i,10]="Fora do Brasil"
+    }
+  }
+  
+  for(i in 1:dim(pts2)[1]){
+    if((pts2$municipality==pts2[,9])[i]==TRUE){
+      pts2[i,"filt"]="Invertidas"
+    }
+  }
+  
+  return(pts2)
+}
+
 
 
 

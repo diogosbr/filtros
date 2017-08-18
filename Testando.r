@@ -146,6 +146,11 @@ teste2=invert(teste)
 head(teste2)
 
 
+pts1[1,2]=(-22.959222)
+pts1[1,3]=(-43.27772)
+
+teste3=filt(pts1)
+teste3
 
 
 
