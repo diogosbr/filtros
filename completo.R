@@ -1,5 +1,5 @@
 
-#Função para marcar ocorrências com município informado diferente da coordenada.
+#FunÃ§Ã£o para marcar ocorrÃªncias com municÃ­pio informado diferente da coordenada.
 
 filt = function(pts, shape.municipios){
   # instalando pacotes
@@ -26,7 +26,7 @@ filt = function(pts, shape.municipios){
   
   #br_mun=readShapeSpatial("./Shapes/brasil_mun_ibge/brasil_mun_ibge.shp")
   
-  #atribuinto projeções aos shapes e aos pontos
+  #atribuinto projeÃ§Ãµes aos shapes e aos pontos
   br_mun <- spTransform(br_mun, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
   proj4string(pts) <- CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
   
@@ -46,33 +46,33 @@ filt = function(pts, shape.municipios){
     pts1[,i]=tolower(pts1[,i])
   }
   
-  #função de Athos (https://pt.stackoverflow.com/questions/46473/remover-acentos)
+  #funÃ§Ã£o de Athos (https://pt.stackoverflow.com/questions/46473/remover-acentos)
   
   rm_accent <- function(str,pattern="all") {
-    # Rotinas e funções úteis V 1.0
+    # Rotinas e funÃ§Ãµes Ãºteis V 1.0
     # rm.accent - REMOVE ACENTOS DE PALAVRAS
-    # Função que tira todos os acentos e pontuações de um vetor de strings.
-    # Parâmetros:
-    # str - vetor de strings que terão seus acentos retirados.
-    # patterns - vetor de strings com um ou mais elementos indicando quais acentos deverão ser retirados.
-    #            Para indicar quais acentos deverão ser retirados, um vetor com os símbolos deverão ser passados.
-    #            Exemplo: pattern = c("´", "^") retirará os acentos agudos e circunflexos apenas.
-    #            Outras palavras aceitas: "all" (retira todos os acentos, que são "´", "`", "^", "~", "¨", "ç")
+    # FunÃ§Ã£o que tira todos os acentos e pontuaÃ§Ãµes de um vetor de strings.
+    # ParÃ¢metros:
+    # str - vetor de strings que terÃ£o seus acentos retirados.
+    # patterns - vetor de strings com um ou mais elementos indicando quais acentos deverÃ£o ser retirados.
+    #            Para indicar quais acentos deverÃ£o ser retirados, um vetor com os sÃ­mbolos deverÃ£o ser passados.
+    #            Exemplo: pattern = c("Â´", "^") retirarÃ¡ os acentos agudos e circunflexos apenas.
+    #            Outras palavras aceitas: "all" (retira todos os acentos, que sÃ£o "Â´", "`", "^", "~", "Â¨", "Ã§")
     if(!is.character(str))
       str <- as.character(str)
     
     pattern <- unique(pattern)
     
-    if(any(pattern=="Ç"))
-      pattern[pattern=="Ç"] <- "ç"
+    if(any(pattern=="Ã‡"))
+      pattern[pattern=="Ã‡"] <- "Ã§"
     
     symbols <- c(
-      acute = "áéíóúÁÉÍÓÚýÝ",
-      grave = "àèìòùÀÈÌÒÙ",
-      circunflex = "âêîôûÂÊÎÔÛ",
-      tilde = "ãõÃÕñÑ",
-      umlaut = "äëïöüÄËÏÖÜÿ",
-      cedil = "çÇ"
+      acute = "Ã¡Ã©Ã­Ã³ÃºÃÃ‰ÃÃ“ÃšÃ½Ã",
+      grave = "Ã Ã¨Ã¬Ã²Ã¹Ã€ÃˆÃŒÃ’Ã™",
+      circunflex = "Ã¢ÃªÃ®Ã´Ã»Ã‚ÃŠÃŽÃ”Ã›",
+      tilde = "Ã£ÃµÃƒÃ•Ã±Ã‘",
+      umlaut = "Ã¤Ã«Ã¯Ã¶Ã¼Ã„Ã‹ÃÃ–ÃœÃ¿",
+      cedil = "Ã§Ã‡"
     )
     
     nudeSymbols <- c(
@@ -84,7 +84,7 @@ filt = function(pts, shape.municipios){
       cedil = "cC"
     )
     
-    accentTypes <- c("´","`","^","~","¨","ç")
+    accentTypes <- c("Â´","`","^","~","Â¨","Ã§")
     
     if(any(c("all","al","a","todos","t","to","tod","todo")%in%pattern)) # opcao retirar todos
       return(chartr(paste(symbols, collapse=""), paste(nudeSymbols, collapse=""), str))
@@ -121,7 +121,7 @@ filt = function(pts, shape.municipios){
   #criando um data frame
   pts2=as.data.frame(pts1)
 
-  #atribuinto projeçãos aos pontos
+  #atribuinto projeÃ§Ã£os aos pontos
   proj4string(pts1) <- CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
   
   #extraindo dados dos shapes a partir dos pontos
@@ -157,7 +157,7 @@ filt = function(pts, shape.municipios){
   #criando um data frame
   pts3=as.data.frame(pts2)
   
-  #atribuinto projeçãos aos pontos
+  #atribuinto projeÃ§Ã£os aos pontos
   proj4string(pts2) <- CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
   
   #extraindo dados dos shapes a partir dos pontos

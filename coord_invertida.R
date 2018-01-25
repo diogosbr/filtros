@@ -1,5 +1,5 @@
 
-#Função para verificar se as coordenadas estão invretidas
+#FunÃ§Ã£o para verificar se as coordenadas estÃ£o invretidas
 
 invert = function(pts, shape.municipios){
   pts=pts[pts$filt=="suspeito",]
@@ -15,7 +15,7 @@ invert = function(pts, shape.municipios){
     br_mun=readOGR("./Shapes/brasil_mun_ibge/brasil_mun_ibge.shp")
   } else(br_mun=shape.municipios)
   
-  #atribuinto projeções aos shapes e aos pontos
+  #atribuinto projeÃ§Ãµes aos shapes e aos pontos
   br_mun <- spTransform(br_mun, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
   proj4string(pts) <- CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
   
